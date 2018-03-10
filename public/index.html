@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="https://fonts.googleapis.com/css?family=Arvo" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css"/>
+    <title>Vue Todo</title>
+  </head>
+  <body>
+    <div id="app">
+      <h1>A List of Things To Do</h1>
+      <p v-show="activeItems.length === 0">You are done with all your tasks! Good job!</p>
+      <form v-on:submit.prevent="addItem">
+	<p>Enter a task, then select a priority level to add your task!</p>
+	<input type="text" v-model="text">
+	<button v-on:click="priority=1">1</button>
+	<button v-on:click="priority=2">2</button>
+	<button v-on:click="priority=3">3</button> 
+      </form>
+      <div class="controls">
+	<button v-on:click="showAll()">Show All</button>
+	<button v-on:click="showActive()">Show Active</button>
+	<button v-on:click="showCompleted()">Show Completed</button>
+	<button v-on:click="deleteCompleted()">Delete Completed</button>
+        <button v-on:click="sort()">Sort1</button>
+	<button v-on:click="sort2()">Sort2</button>
+	<button v-on:click="sort3()">Sort3</button>
+	</div>
+      <ul>
+	<li v-for="item in filteredItems" draggable="true" v-on:dragstart="dragItem(item)" v-on:dragover.prevent v-on:drop="dropItem(item)">
+	  <input type="checkbox" v-model="item.completed" v-on:click="completeItem(item)" /><label v-bind:class="{ completed: item.completed }">{{ item.text }}, {{ item.priority }}</label><button v-on:click="item.priority =1, updatePrior(item)" class="delete">1</button><button v-on:click="item.priority=2, updatePrior(item)" class="delete">2</button><button v-on:click="item.priority=3, updatePrior(item)" class="delete">3</button><button v-on:click="deleteItem(item)" class="delete">X</button>
+	</li>
+      </ul>
+    </div>
+    <div class ="footer">Here is the link to my git hub. https://github.com/NathanaelSmith/CS260-Lab4-NathanaelSmith I tried to contact the TAs, but sadly my class room repository got deactivated and i couldnt do my work on there. The old link is https://github.com/BYU-CS260-Winter-2018/lab-4-NathanaelSmith but it doesnt work. Hopefully that still works out. I wanted to do it on the class room one, but i honestly couldnt figure out why it wansnt letting me join.</div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js" integrity="sha256-mpnrJ5DpEZZkwkE1ZgkEQQJW/46CSEh/STrZKOB/qoM=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.js" integrity="sha256-pU9euBaEcVl8Gtg+FRYCtin2vKLN8sx5/4npZDmY2VA=" crossorigin="anonymous"></script>
+    <script src="/script.js"></script>
+  </body>
+</html>
